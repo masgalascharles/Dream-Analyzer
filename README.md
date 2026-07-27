@@ -1,4 +1,4 @@
-# Dream-Journal-Analyzer
+# Dream-Analyzer
 I have been writing down my dreams every morning for the past months. I got the idea to analyze my dream journal to see frequent patterns over time. I used cosine similarity and agglomerative clustering, plus `llama-3.3-70b-versatile` to name the clusters.\
 **FOR PRIVACY REASONS, I HAVE NOT INCLUDED MY PERSONAL DREAM JOURNAL IN THIS REPOSITORY. A SAMPLE DATASET HAS BEEN PROVIDED.**
 
@@ -30,7 +30,7 @@ A scatter plot of the cluster assigned to each dream over time and a heatmap of 
 ## How to Run
 1.
 ```cmd
-git clone https://github.com/masgalascharles/Dream-Journal-Analyzer.git
+git clone https://github.com/masgalascharles/Dream-Analyzer.git
 ```
 2.
 ```cmd
