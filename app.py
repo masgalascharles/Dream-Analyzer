@@ -11,6 +11,9 @@ from datetime import datetime
 from openai import OpenAI
 
 
+
+
+
 ################
 ## DATA SETUP ##
 ################
@@ -69,6 +72,9 @@ embeddings = np.array([entry["embedding"] for entry in data])
 similarities_matrix = cosine_similarity(embeddings) # Get the cosine similarity between each pair of dreams
 
 
+
+
+
 ################
 ## CLUSTERING ##
 ################
@@ -118,9 +124,17 @@ def generate_cluster_titles(n_clusters, clusters, _client):
             for j in range(0, min(len(clusters[i]), 10)): # Only 10 entries are given to the LLM so this doesn't take forever when my dream journal grows
                 prompt += f"{clusters[i][j]["text"]}\n\n"
 
-            prompt += "Create a brief title for this cluster. Use the dominant themes/details/settings/etc. within this cluster to come up with your title. In your response, provide only the title with no additional text."
+            prompt += """
+            Create a brief title for this cluster.
+            Use the dominant themes/details/settings/etc. within this cluster to come up with your title.
+            Your title should not be longer than 5 words.
+            Your title should not read as "mystical" or "magical" or "fantasy-like" or "dreamy."
+            It should accurately reflect the content of the dreams in this cluster.
+            In your response, provide only the title with no additional text.
+            """
+
             response = _client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
+                model="openai/gpt-oss-120b",
                 messages=[
                     {
                         "role": "user",
@@ -161,6 +175,9 @@ def get_average_similarity(similarities_matrix, cluster):
     return total / (n * (n - 1) / 2)
 
 average_similarities = [get_average_similarity(similarities_matrix, cluster) for cluster in clusters]
+
+
+
 
 
 ########
@@ -204,6 +221,9 @@ for entry in selected_cluster:
 st.divider()
 
 
+
+
+
 ########################
 ## HEATMAP GENERATION ##
 ########################
@@ -230,6 +250,9 @@ def generate_heatmap(data, similarities_matrix):
 st.pyplot(generate_heatmap(data, similarities_matrix))
 
 
+
+
+
 ############################
 ## SCATTER PLOT GENERATOR ##
 ############################
@@ -249,3 +272,9 @@ def generate_scatter_plot(data_length, file_names, cluster_ids, number_of_cluste
     return figure
 
 st.pyplot(generate_scatter_plot(data_length, file_names, cluster_ids, len(clusters)))
+
+
+
+
+
+st.link_button("View on GitHub", "https://github.com/masgalascharles/Dream-Analyzer")
