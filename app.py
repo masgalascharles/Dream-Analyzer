@@ -277,4 +277,4 @@ st.pyplot(generate_scatter_plot(data_length, file_names, cluster_ids, len(cluste
 
 
 
-st.link_button("View on GitHub", "https://github.com/masgalascharles/Dream-Analyzer")
+st.link_button("View on GitHub", "https://github.com/masgalascharles/Dream-Analyzer", width="stretch")
